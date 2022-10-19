@@ -1,0 +1,32 @@
+So, this program is to implement a conceptual RDT 2.1 network protocol. 
+
+The guts of this program are a little messy but takes data, breaks it into segments, 
+sends these segments as packets using pickle to convert the object into a byte stream, and then sent over a network. 
+
+Each packet has a possibility of being corrupted by a predetermined possibility entered from each user, and then once a packet is recieved, 
+if corrupted the interface recieving the packet will send back a NAK packet indicating that the packet was not recieved successfully, 
+and if successful the interface recieving will send back a ACK packet. 
+
+Each time a packet is sent the sending interface will wait for either a ACK or NAK, and will retransmit the packet if the packet is 'corrupted'.
+
+The server takes a simple message or phrase from the connecting client 
+and will translate the message by breaking it down and compairing each word to a csv file, where the translation for the words are located. 
+
+The original CSV file was converted to a different character encoding so it would work properly on my windows computer with the code I used. 
+
+The server stays on perpetually and can recieve multiple clients.
+
+The clients only job is to send a message then show the translation.
+
+To run the client, in a terminal/CMD/shell terminal window, from the directory cotaining the client, we need to start and pass in arguments. 
+the command to start is as follows, 'python client.py [PORT NUMBER] [SEGMENT SIZE] [CORRUPTION PROBABILITY]'
+another way to run it would be 'client.py [PORT NUMBER] [SEGMENT SIZE] [CORRUPTION PROBABILITY]'
+Once running it will ask you to type in the message to translate, then continue its operation to translate.
+
+To run the server, in a terminal/CMD/shell terminal window, from the directory cotaining the client, we need to start and pass in arguments. 
+the command to start is as follows, 'python server.py [PORT NUMBER] [SEGMENT SIZE] [CORRUPTION PROBABILITY]'
+another way to run it would be 'server.py [PORT NUMBER] [SEGMENT SIZE] [CORRUPTION PROBABILITY]'
+Remember, the server only needs to be ran once and will continue to translate as much as possible.
+
+The code for this is not very clean, I could have made it a lot nicer when I implement the corruption probability checker and sending/receiving NAK ACK packets,
+but it all works as should and successfully implements the RDT 2.1 protocol.
