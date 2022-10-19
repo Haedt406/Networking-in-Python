@@ -33,3 +33,5 @@ Remember, the server only needs to be ran once and will continue to translate as
 
 The code for this is not very clean, I could have made it a lot nicer when I implement the corruption probability checker and sending/receiving NAK ACK packets,
 but it all works as should and successfully implements the RDT 2.1 protocol.
+
+UPDATE 1.1 - Corrected packet.py so it is complete and imported it into both the client and server.
