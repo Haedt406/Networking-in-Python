@@ -14,3 +14,4 @@ Once network.py is running, go to your other terminal and run 'simulation.py' by
 As long as the required CSV files are in the directory with simulation.py, network.py, and packets.py. simulation.py will read from 'packets.csv',
 then use that informaiton to create our packet with specific input and send them to 'network.py', which will then route the packets around in our mock LAN
 
+Link to panopto video demonstrating this project: https://montana.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=e1cd950f-051f-4d01-8831-af4a005999cf 
