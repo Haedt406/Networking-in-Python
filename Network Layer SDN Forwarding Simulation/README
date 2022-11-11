@@ -1,0 +1,16 @@
+#this project is a simulation for a network routing packets to different routers based on port forwarding and destination IP addresses
+#the "network.py" works as a server that takes packets in from an outside network and then routes those networks in a LAN to 4 different routers
+#the routers are all object of the 'router' class and hold all the rules that help direct traffic around this simulated network
+#the packets are their own object class called 'packet'.
+#the packets and the routers rules and specificaitons for each router (their ip address, label, and what routers they connect to), are located in 'packets.csv', 'rules.csv', and 'routers.csv'
+
+
+To run, you need to start two command promts/powershell windows/terminals. first start the network.py by typing in 'python network.py'. 
+The network.py acts as a server and takes packets in from 'server.py', which acts as the client. Network.py will run forever.
+Network.py will read in rules.csv and routers.csv, these hold the specifications for each router and the rules it has to follow in our mock network.
+Uses port 5005 and sockets to communicate
+Once network.py is running, go to your other terminal and run 'simulation.py' by typing in 'python simulation.py'
+
+As long as the required CSV files are in the directory with simulation.py, network.py, and packets.py. simulation.py will read from 'packets.csv',
+then use that informaiton to create our packet with specific input and send them to 'network.py', which will then route the packets around in our mock LAN
+
