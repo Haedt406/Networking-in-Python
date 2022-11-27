@@ -1,0 +1,22 @@
+So, this is programming assignment 4 for CSCI 466. This program is a representation of a token ring, which is a type of link layer Media Access Control (MAC)
+protocol that is to avoid collisions of packets.
+
+The program itself is simple and short yet effective, a node can only send a packet if it holds the token that is passed round robin style. Once a packet is sent, 
+the token is then passed along to the next node.
+
+In this implementation, it sends the packet to the next node, but this is decieving, when a node has the token, it can send a packet whereever it wants, not just to the
+next node in the circle.
+
+To set up a connection, it uses UDP from the sockets library in python.
+
+If you would like to run this yourself, then you will need to download node.py, open a command prompt/terminal window/ powershell and type in 
+"python node.py 8000 8001 5 1 1 "
+
+The format for node.py is <send port> <receiving port> <# of packets> <is head> <node #>
+so the node we just started will set up one node with a send port of 8000 and a receiving port of 8001, 5 packets in the queue, 
+1 means it is the start of the token ring (you need to specify who will start the token ring), and the last 1 is to represent what number the node is.
+
+Once the first one is set up, you can start another terminal window and type in "python node.py 8001 8000 5 0 1 "
+This will create a 2 node token ring, you can have as many as you would like, i have only tested this with 5 nodes at once though.
+
+Panopto link: https://montana.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=ebe9f1f3-21d0-4ebb-b1bc-af5a0043ac99
