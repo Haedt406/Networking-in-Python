@@ -17,6 +17,6 @@ so the node we just started will set up one node with a send port of 8000 and a 
 1 means it is the start of the token ring (you need to specify who will start the token ring), and the last 1 is to represent what number the node is.
 
 Once the first one is set up, you can start another terminal window and type in "python node.py 8001 8000 5 0 1 "
-This will create a 2 node token ring, you can have as many as you would like, i have only tested this with 5 nodes at once though.
+This will create a 2 node token ring, you can have as many as you would like, i have only tested this with up to 5 nodes at once though.
 
 Panopto link: https://montana.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=ebe9f1f3-21d0-4ebb-b1bc-af5a0043ac99
