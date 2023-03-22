@@ -1,0 +1,437 @@
+import socket
+import threading
+import time
+import queue
+global playerDic
+playerDic = {}
+global players
+players = []
+#global count
+#count = 0
+ourQ = queue.Queue()
+def RPS():
+    #print(ourQ.get())
+    while True:
+        test = ""
+        print("before first outQ.get")
+        player1Output = ourQ.get()
+        print(player1Output)
+        print("after first ourQ.get")
+        player2Output = ourQ.get()
+    #    print(player2Output)
+
+    #    print(playerDic[players[0]])
+    ##    print(playerDic[players[1]])
+        # if (player2Output) == (player1Output):
+        #     test = "Draw"
+        # elif (player1Output) == "rock" and (player2Output) == "paper" or (player1Output) == "paper" and (player2Output) == "scissors" or (player1Output) == "scissors" and (player2Output) == "rock":
+        #     test ="Player 2 Wins!"
+        # elif (player1Output) == "paper" and (player2Output) == "rock" or (player1Output) == "scissors" and (player2Output) == "paper" or (player1Output) == "rock" and (player2Output) == "scissors":
+        #     test = "Player 1 Wins!"
+        time.sleep(1)
+
+        if (queue.Empty):  
+        #print(playerDic[])
+            if (playerDic[players[1]]) == (playerDic[players[0]]):
+                test = "Draw"
+            elif (playerDic[players[0]]) == "rock" and (playerDic[players[1]]) == "paper" or (playerDic[players[0]]) == "paper" and (playerDic[players[1]]) == "scissors" or (playerDic[players[0]]) == "scissors" and (playerDic[players[1]]) == "rock":
+                test ="Player 2 Wins!"
+            elif (playerDic[players[0]]) == "paper" and (playerDic[players[1]]) == "rock" or (playerDic[players[0]]) == "scissors" and (playerDic[players[1]]) == "paper" or (playerDic[players[0]]) == "rock" and (playerDic[players[1]]) == "scissors":
+                test ="Player 1 Wins!"
+            #if (queue.Empty):
+            for each_socket in players:
+                each_socket.send(test.encode())
+            playerDic.clear()
+            players.clear()
+            players[0].close
+            players[1].close
+     
+def main():
+    print("Rock Paper Scissors with Sockets Server")
+    print("-----------------------------------\n")
+    port = input(print("Please enter Port Number to use: "))
+    port = int(port)
+    host = socket.gethostname()
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as stream:
+        stream.bind((host, port))
+        stream.listen(2)
+        print("Waiting for connections:")
+        thread = threading.Thread(target=RPS, args=())
+        thread.start()
+        playerNum = 0
+        while True:
+            conn, addr = stream.accept()
+            players.append(conn)
+            # if (playerNum == 0):
+            #     conn.send("Welcome Player 1".encode('utf-8'))
+            #     playerNum +=1
+            # elif (playerNum ==1):
+            #     conn.send("Welcome Player 2".encode('utf-8'))
+            #     playerNum = 0
+            print("New connection")
+            thread = threading.Thread(target=handler, args=(conn))
+
+            thread.start()
+            print("in while after thread start")
+      #      print(count)
+      #      count +=1
+         #   if (queue.Empty):
+         #       for each_socket in players:
+          #          each_socket.send(whoWon.encode())
+            
+           #     break    
+            print("at end of while")
+        print("at end of with")   
+    print("at end of main")
+
+
+def handler(conn):
+    switch = 0
+    
+    time.sleep(1)
+    while switch != 1:
+        print("in true")
+        print(playerChoice)
+        playerChoice = conn.recv(1024).decode()
+     #   print(playerChoice)
+        if (playerChoice == "rock") or (playerChoice == "paper") or (playerChoice == "scissors"):
+            conn.send("200 OK".encode('utf-8'))
+            playerDic.update({conn: playerChoice})
+            ourQ.put(playerChoice)
+            print("in if")
+            switch = 1
+        else:
+            conn.send("404 Not Found".encode('utf-8'))
+            print("in else")
+
+  
+
+main()
+print("after main")
+
+
+            # if (playerNum == 0):
+            #     conn.send("Welcome Player 1".encode('utf-8'))
+            #     playerNum +=1
+            # elif (playerNum ==1):
+            #     conn.send("Welcome Player 2".encode('utf-8'))
+            #     playerNum = 0
+
+import socket
+import threading
+import time
+import queue
+#playerDic = {}
+players = []
+global count
+count = 0
+ourQ = queue.Queue()
+def RPS():
+    #print(ourQ.get())
+    test = ""
+    player1Output = ourQ.get()
+    player2Output = ourQ.get()
+    if (player2Output) == (player1Output):
+        test = "Draw"
+    elif (player1Output) == "rock" and (player2Output) == "paper" or (player1Output) == "paper" and (player2Output) == "scissors" or (player1Output) == "scissors" and (player2Output) == "rock":
+        test ="Player 2 Wins!"
+    elif (player1Output) == "paper" and (player2Output) == "rock" or (player1Output) == "scissors" and (player2Output) == "paper" or (player1Output) == "rock" and (player2Output) == "scissors":
+        test = "Player 1 Wins!"
+    if (queue.Empty):
+        for each_socket in players:
+            each_socket.send(test.encode())
+                
+ #   print(playerDic[players[0]])
+  #  if (playerDic[players[1]]) == (playerDic[players[0]]):
+  #      return "Draw"
+  #  elif (playerDic[players[0]]) == "rock" and (playerDic[players[1]]) == "paper" or (playerDic[players[0]]) == "paper" and (playerDic[players[1]]) == "scissors" or (playerDic[players[0]]) == "scissors" and (playerDic[players[1]]) == "rock":
+  #      return "Player 2 Wins!"
+  #  elif (playerDic[players[0]]) == "paper" and (playerDic[players[1]]) == "rock" or (playerDic[players[0]]) == "scissors" and (playerDic[players[1]]) == "paper" or (playerDic[players[0]]) == "rock" and (playerDic[players[1]]) == "scissors":
+  #      return "Player 1 Wins!"
+
+
+def main():
+    print("Rock Paper Scissors with Sockets Server")
+    print("-----------------------------------\n")
+    port = input(print("Please enter Port Number to use: "))
+    port = int(port)
+    host = socket.gethostname()
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as stream:
+        stream.bind((host, port))
+        stream.listen(2)
+        print("Waiting for connections:")
+        thread = threading.Thread(target=RPS, args=())
+       
+        while True:
+            conn, addr = stream.accept()
+            print(addr)
+            players.append(conn)
+            print("New connection")
+            thread = threading.Thread(target=handler, args=(conn, addr))
+
+            thread.start()
+            print("in while after thread start")
+      #      print(count)
+      #      count +=1
+         #   if (queue.Empty):
+         #       for each_socket in players:
+          #          each_socket.send(whoWon.encode())
+            
+           #     break    
+            print("at end of while")
+        print("at end of with")   
+    print("at end of main")
+
+
+def handler(conn, addr):
+    switch = 0
+    
+    
+    while switch != 1:
+        print("in true")
+        playerChoice = conn.recv(1024).decode()
+        print(playerChoice)
+        if (playerChoice == "rock") or (playerChoice == "paper") or (playerChoice == "scissors"):
+            conn.send("200 OK".encode('utf-8'))
+            #playerDic.update({conn: playerChoice})
+            ourQ.put(playerChoice)
+            print("in if")
+            switch = 1
+            
+        else:
+            conn.send("404 Not Found".encode('utf-8'))
+            print("in else")
+
+  
+
+main()
+print("after main")
+players[0].close
+players[1].close
+socket.socket(socket.AF_INET, socket.SOCK_STREAM).close
+
+
+
+
+import socket
+import threading
+import time
+import queue
+global playerDic
+playerDic = {}
+global players
+players = []
+#global count
+#count = 0
+ourQ = queue.Queue()
+def RPS():
+    #print(ourQ.get())
+    while True:
+        test = ""
+        player1Output = ourQ.get()
+        player2Output = ourQ.get()
+        time.sleep(1)
+        if (playerDic[players[1]]) == (playerDic[players[0]]):
+            test = "Draw"
+        elif (playerDic[players[0]]) == "rock" and (playerDic[players[1]]) == "paper" or (playerDic[players[0]]) == "paper" and (playerDic[players[1]]) == "scissors" or (playerDic[players[0]]) == "scissors" and (playerDic[players[1]]) == "rock":
+            test ="Player 2 Wins!"
+        elif (playerDic[players[0]]) == "paper" and (playerDic[players[1]]) == "rock" or (playerDic[players[0]]) == "scissors" and (playerDic[players[1]]) == "paper" or (playerDic[players[0]]) == "rock" and (playerDic[players[1]]) == "scissors":
+            test ="Player 1 Wins!"
+        for each_socket in players:
+            each_socket.send(test.encode())
+            each_socket.close
+        playerDic.clear()
+        players.clear()
+
+     
+def main():
+    print("Rock Paper Scissors with Sockets Server")
+    print("-----------------------------------\n")
+    port = input(print("Please enter Port Number to use: "))
+    port = int(port)
+    host = socket.gethostname()
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as stream:
+        stream.bind((host, port))
+        stream.listen(2)
+        print("Waiting for connections:")
+        thread = threading.Thread(target=RPS, args=())
+        thread.start()
+        playerNum = 0
+        while True:
+            conn, addr = stream.accept()
+            players.append(conn)
+            # if (playerNum == 0):
+            #     conn.send("Welcome Player 1".encode('utf-8'))
+            #     playerNum +=1
+            # elif (playerNum ==1):
+            #     conn.send("Welcome Player 2".encode('utf-8'))
+            #     playerNum = 0
+            print("New connection")
+            thread = threading.Thread(target=handler, args=(conn,addr))
+
+            thread.start()
+            print("in while after thread start")
+      #      print(count)
+      #      count +=1
+         #   if (queue.Empty):
+         #       for each_socket in players:
+          #          each_socket.send(whoWon.encode())
+            
+           #     break    
+            print("at end of while")
+
+def handler(conn,addr):
+    switch = 0
+    time.sleep(1)
+    while switch != 1:
+        print("in true")
+        playerChoice = conn.recv(1024).decode()
+        if (playerChoice == "rock") or (playerChoice == "paper") or (playerChoice == "scissors"):
+            conn.send("200 OK".encode('utf-8'))
+            ourQ.put(playerChoice)
+            time.sleep(1)
+            playerDic.update({conn: playerChoice})
+            if (len(players) == 1):
+                conn.send("Hello Player 1".encode())
+            elif (len(players) == 2):
+                conn.send("Hello Player 2".encode())
+            print("in if")
+            switch = 1
+        else:
+            conn.send("404 Not Found".encode('utf-8'))
+            print("in else")
+
+  
+
+main()
+print("after main")
+
+import socket
+import threading
+import time
+import queue
+global playerDic
+playerDic = {}
+global players
+players = []
+
+global count
+count = 0
+ourQ = queue.Queue()
+def RPS():
+    #print(ourQ.get())
+    while True:
+        test = ""
+        print("before first outQ.get")
+        player1Output = ourQ.get()
+        print(player1Output)
+
+        print("after first ourQ.get")
+        player2Output = ourQ.get()
+    #    print(player2Output)
+
+    #    print(playerDic[players[0]])
+    ##    print(playerDic[players[1]])
+        # if (player2Output) == (player1Output):
+        #     test = "Draw"
+        # elif (player1Output) == "rock" and (player2Output) == "paper" or (player1Output) == "paper" and (player2Output) == "scissors" or (player1Output) == "scissors" and (player2Output) == "rock":
+        #     test ="Player 2 Wins!"
+        # elif (player1Output) == "paper" and (player2Output) == "rock" or (player1Output) == "scissors" and (player2Output) == "paper" or (player1Output) == "rock" and (player2Output) == "scissors":
+        #     test = "Player 1 Wins!"
+        time.sleep(1)
+        x = 0
+        while (x << 2):
+            print(playerDic[x])
+            print(players[x])
+            x+=1
+
+         
+        #print(playerDic[])
+        if (playerDic[players[1]]) == (playerDic[players[0]]):
+            test = "Draw"
+        elif (playerDic[players[0]]) == "rock" and (playerDic[players[1]]) == "paper" or (playerDic[players[0]]) == "paper" and (playerDic[players[1]]) == "scissors" or (playerDic[players[0]]) == "scissors" and (playerDic[players[1]]) == "rock":
+            test ="Player 2 Wins!"
+        elif (playerDic[players[0]]) == "paper" and (playerDic[players[1]]) == "rock" or (playerDic[players[0]]) == "scissors" and (playerDic[players[1]]) == "paper" or (playerDic[players[0]]) == "rock" and (playerDic[players[1]]) == "scissors":
+            test ="Player 1 Wins!"
+        
+        #if (queue.Empty):
+        for each_socket in players:
+            each_socket.send(test.encode())
+
+            each_socket.close
+        playerDic.clear()
+        players.clear()
+
+     
+def main():
+    print("Rock Paper Scissors with Sockets Server")
+    print("-----------------------------------\n")
+    port = input(print("Please enter Port Number to use: "))
+    port = int(port)
+    host = socket.gethostname()
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as stream:
+        stream.bind((host, port))
+        stream.listen(2)
+        print("Waiting for connections:")
+        thread = threading.Thread(target=RPS, args=())
+        thread.start()
+        while True:
+            conn, addr = stream.accept()
+            if (count==0):
+                players[0] = conn
+            if (len(players) ==1):
+                players[1] = conn
+        #    players.append(conn)
+            # if (playerNum == 0):
+            #     conn.send("Welcome Player 1".encode('utf-8'))
+            #     playerNum +=1
+            # elif (playerNum ==1):
+            #     conn.send("Welcome Player 2".encode('utf-8'))
+            #     playerNum = 0
+            print("New connection")
+            thread = threading.Thread(target=handler, args=(conn,addr))
+
+            thread.start()
+            print("in while after thread start")
+      #      print(count)
+      #      count +=1
+         #   if (queue.Empty):
+         #       for each_socket in players:
+          #          each_socket.send(whoWon.encode())
+            
+           #     break    
+            print("at end of while")
+
+
+def handler(conn,addr):
+    switch = 0
+    time.sleep(1)
+    while switch != 1:
+        print("in true")
+        playerChoice = conn.recv(1024).decode()
+        if (playerChoice == "rock") or (playerChoice == "paper") or (playerChoice == "scissors"):
+            conn.send("200 OK".encode('utf-8'))
+            ourQ.put(playerChoice)
+            time.sleep(1)
+            playerDic.update({conn: playerChoice})
+            if (len(players) == 0):
+                conn.send("Hello Player 1".encode())
+            elif (len(players) == 1):
+                conn.send("Hello Player 2".encode())
+            print("in if")
+            switch = 1
+        else:
+            conn.send("404 Not Found".encode('utf-8'))
+            print("in else")
+
+  
+
+main()
+print("after main")
+
+            # if (len(players) == 1):
+            #     conn.send("Hello Player 1".encode())
+            #     players[0] = conn
+            # elif (len(players) == 2):
+            #     conn.send("Hello Player 2".encode())
+            #     players[1] = conn
